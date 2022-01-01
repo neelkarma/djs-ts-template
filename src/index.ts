@@ -6,12 +6,12 @@ dotenv();
 
 const client = new Client({ intents: [Intents.FLAGS.GUILD_MESSAGES] });
 
-const commands = new Map<string, Command>();
+client.commands = new Map<string, Command>();
 readdirSync("./dist/commands")
   .filter((file) => file.endsWith(".js"))
   .forEach((file) => {
     const command = require(`./commands/${file}`);
-    commands.set(command.default.data.name, command.default);
+    client.commands.set(command.default.data.name, command.default);
   });
 
 client.once("ready", () => {
@@ -21,7 +21,7 @@ client.once("ready", () => {
 
 client.on("interactionCreate", (interaction) => {
   if (!interaction.isCommand()) return;
-  const command = commands.get(interaction.commandName);
+  const command = client.commands.get(interaction.commandName);
   if (!command)
     return console.warn(
       `Application Command "${interaction.commandName}" doesn't exist.`
