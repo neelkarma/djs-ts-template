@@ -10,6 +10,13 @@ Comes with:
 - Hot-Reload Dev Server
 - Secret management
 
+Doesn't come with:
+
+- Anything database-related
+- Anything voice-related
+
+Although it should be pretty straightforward to add either.
+
 ## Usage
 
 1. Make sure you have Yarn installed globally.
