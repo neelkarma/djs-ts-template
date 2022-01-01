@@ -6,7 +6,7 @@ require("dotenv").config();
 const {
   BOT_TOKEN: token,
   BOT_CLIENT_ID: clientId,
-  DEV_SERVER_ID: guildId,
+  DEV_GUILD_ID: guildId,
 } = process.env;
 
 const commands = readdirSync("./dist/commands")
