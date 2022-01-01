@@ -17,6 +17,7 @@ readdirSync("./dist/commands")
 client.once("ready", () => {
   console.info("Logged in!");
   console.info(`Tag: ${client.user?.tag}`);
+  console.info(`Client ID: ${client.user?.id}`);
 });
 
 client.on("interactionCreate", (interaction) => {
