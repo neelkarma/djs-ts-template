@@ -6,7 +6,7 @@ require("dotenv").config();
 const {
   BOT_TOKEN: token,
   BOT_CLIENT_ID: clientId,
-  DEV_GUILD_ID: guildId,
+  DEV_GUILD_IDS: guildIds,
 } = process.env;
 
 const commands = readdirSync("./dist/commands")
@@ -15,16 +15,18 @@ const commands = readdirSync("./dist/commands")
 
 const rest = new REST({ version: "9" }).setToken(token);
 
-(async () => {
-  try {
-    console.log(`Started deploying slash commands for Guild ID ${guildId}.`);
+Promise.all(
+  guildIds.split(",").map(async (guildId) => {
+    try {
+      await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+        body: commands,
+      });
 
-    await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-      body: commands,
-    });
-
-    console.log(`Successfully deployed slash commands for guild ID ${guildId}`);
-  } catch (error) {
-    console.error(error);
-  }
-})();
+      console.log(
+        `Successfully deployed slash commands for guild ID ${guildId}`
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  })
+);

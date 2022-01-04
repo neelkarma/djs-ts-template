@@ -45,5 +45,5 @@ Although it should be pretty straightforward to add either.
 
 - `dev` - Spins up a dev server with `tsc-watch`. Automatically rebuilds and restarts the bot on file changes. Note that this doesn't redeploy slash commands.
 - `build` - Builds the bot into the `dist` folder.
-- `deploy:dev` - Deploys slash commands to the development guild specified in your `.env` file.
+- `deploy:dev` - Deploys slash commands to the development guilds specified in your `.env` file.
 - `deploy:prod` - Deploys slash commands globally.
