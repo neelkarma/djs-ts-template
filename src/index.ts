@@ -4,7 +4,7 @@ import { readdirSync } from "fs";
 import { Command } from "structures/command";
 dotenv();
 
-const client = new Client({ intents: [Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Map<string, Command>();
 readdirSync("./dist/commands")
