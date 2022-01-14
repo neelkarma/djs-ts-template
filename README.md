@@ -47,3 +47,5 @@ Although it should be pretty straightforward to add either.
 - `build` - Builds the bot into the `dist` folder.
 - `deploy:dev` - Deploys slash commands to the development guilds specified in your `.env` file.
 - `deploy:prod` - Deploys slash commands globally.
+- `undeploy:dev` - Removes all slash commands from the development guilds specified in your `.env` file.
+- `undeploy:prod` - Removes all global slash commands.
