@@ -1,7 +1,7 @@
 import { Client, Intents } from "discord.js";
 import { config as dotenv } from "dotenv";
 import { readdirSync } from "fs";
-import { Command } from "structures/command";
+import { Command } from "./structures/command";
 dotenv();
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
