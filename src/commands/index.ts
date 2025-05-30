@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 import ping from "./ping.ts";
-import { Command } from "../types.ts";
+import type { Command } from "../types.ts";
 
 const commands = new Collection<string, Command>();
 
