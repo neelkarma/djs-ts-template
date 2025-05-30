@@ -1,13 +1,4 @@
-# Yarn
-/.yarn/*
-!/.yarn/patches
-!/.yarn/plugins
-!/.yarn/releases
-!/.yarn/sdks
-/node_modules/
+node_modules/
+.env
+dist/
 
-# Secrets
-/.env
-
-# Build artifacts
-/dist

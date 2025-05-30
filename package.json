@@ -1,23 +1,19 @@
 {
   "name": "djs-ts-template",
+  "type": "module",
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
-    "build": "tsc",
-    "deploy:dev": "tsc && node ./scripts/deploy.dev.js",
-    "deploy:prod": "tsc && node ./scripts/deploy.prod.js",
-    "undeploy:dev": "node ./scripts/undeploy.dev.js",
-    "undeploy:prod": "node ./scripts/undeploy.prod.js"
+    "build": "tsdown --entry ./src/index.ts",
+    "watch": "tsdown --entry ./src/index.ts --watch",
+    "start": "node ./dist/index.js",
+    "dev": "tsdown --entry ./src/index.ts --watch --onSuccess \"node ./dist/index.js\"",
+    "register": "tsdown --entry ./src/register.ts && node ./dist/register.js"
   },
+  "packageManager": "pnpm@10.11.0",
   "devDependencies": {
-    "@types/node": "^17.0.5",
-    "tsc-watch": "^4.6.0",
-    "typescript": "^4.5.4"
+    "tsdown": "^0.12.4"
   },
   "dependencies": {
-    "@discordjs/builders": "^0.10.0",
-    "@discordjs/rest": "^0.2.0-canary.0",
-    "discord-api-types": "^0.26.0",
-    "discord.js": "^13.5.0",
-    "dotenv": "^10.0.0"
+    "discord.js": "^14.19.3",
+    "dotenv": "^16.5.0"
   }
 }

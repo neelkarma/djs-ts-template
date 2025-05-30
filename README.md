@@ -1,13 +1,13 @@
 # Discord.js Typescript Template
 
-> Warning: This template is highly opinionated and primarily for my personal use. Don't expect me to agree with every issue or merge every PR.
+> Minimal template to get started with Discord.js and TypeScript.
 
 Comes with:
 
 - TypeScript
 - Slash Command Framework
-- Scripts for deploying said slash commands
-- Hot-Reload Dev Server
+- Script for (un)deploying said slash commands
+- Rebuild and rerun on file save command for development
 - Secret management
 
 Doesn't come with:
@@ -19,33 +19,13 @@ Although it should be pretty straightforward to add either.
 
 ## Usage
 
-1. Make sure you have Yarn installed globally.
-2. Clone this repo.
-3. Create a `.env` file populated with the values specified in the `.env.example` file.
-4. `yarn`
-5. Start hacking.
-
-## File Structure
-
-```
-├───src
-│   │   index.ts - Entry point
-│   │
-│   ├───commands - All files created in this directory will be treated as command files.
-│   │       ping.ts - An example ping command file.
-│   │
-│   └───structures
-│           command.ts - Command Interface
-│   .env - Secrets (e.g. Bot Token), gitignored by default
-│   deploy.dev.js - Dev Slash Command Deploy Script
-│   deploy.prod.js - Prod Slash Command Deploy Script
-```
+1. Create a `.env` file populated with the values specified in the `.env.example` file.
+2. `pnpm i`
+3. Start hacking.
 
 ## Scripts
 
-- `dev` - Spins up a dev server with `tsc-watch`. Automatically rebuilds and restarts the bot on file changes. Note that this doesn't redeploy slash commands.
+- `dev` - Runs the bot, rebuilding and restarting whenever the source code changes.
 - `build` - Builds the bot into the `dist` folder.
-- `deploy:dev` - Deploys slash commands to the development guilds specified in your `.env` file.
-- `deploy:prod` - Deploys slash commands globally.
-- `undeploy:dev` - Removes all slash commands from the development guilds specified in your `.env` file.
-- `undeploy:prod` - Removes all global slash commands.
+- `start` - Runs the built bot. Usually used after `build`.
+- `register` - (De)Registers slash commands. If the `--global` flag is present, will register the commands globally. Otherwise, it will register only to the guild specified in your .env file. If the `--deregister` flag is present, it will remove all registered commands.

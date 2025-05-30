@@ -1,33 +1,38 @@
-import { Client, Intents } from "discord.js";
-import { config as dotenv } from "dotenv";
-import { readdirSync } from "fs";
-import { Command } from "./structures/command";
-dotenv();
+import "dotenv/config";
+import { Client, Events, GatewayIntentBits, MessageFlags } from "discord.js";
+import commands from "./commands";
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.commands = new Map<string, Command>();
-readdirSync("./dist/commands")
-  .filter((file) => file.endsWith(".js"))
-  .forEach((file) => {
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.default.data.name, command.default);
-  });
-
-client.once("ready", () => {
-  console.info("Logged in!");
-  console.info(`Tag: ${client.user?.tag}`);
-  console.info(`Client ID: ${client.user?.id}`);
+client.once(Events.ClientReady, (readyClient) => {
+  console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-client.on("interactionCreate", (interaction) => {
-  if (!interaction.isCommand()) return;
-  const command = client.commands.get(interaction.commandName);
-  if (!command)
-    return console.warn(
-      `Application Command "${interaction.commandName}" doesn't exist.`
-    );
-  command.execute(interaction);
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+
+  const command = commands.get(interaction.commandName);
+  if (!command) {
+    console.error(`No command matching ${interaction.commandName} was found.`);
+    return;
+  }
+
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    if (interaction.replied || interaction.deferred) {
+      await interaction.followUp({
+        content: "There was an error while executing this command!",
+        flags: MessageFlags.Ephemeral,
+      });
+    } else {
+      await interaction.reply({
+        content: "There was an error while executing this command!",
+        flags: MessageFlags.Ephemeral,
+      });
+    }
+  }
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.CLIENT_TOKEN!);

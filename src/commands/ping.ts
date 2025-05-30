@@ -1,11 +1,13 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { Command } from "../structures/command";
+import { SlashCommandBuilder } from "discord.js";
+import type { Command } from "../types";
 
-export default {
+const ping: Command = {
   data: new SlashCommandBuilder()
     .setName("ping")
-    .setDescription("An example ping command."),
-  execute: async (interaction) => {
-    interaction.reply({ content: "Pong", ephemeral: true });
+    .setDescription("Simple ping command."),
+  async execute(interaction) {
+    await interaction.reply("Pong!");
   },
-} as Command;
+};
+
+export default ping;
